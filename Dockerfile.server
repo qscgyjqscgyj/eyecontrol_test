@@ -1,0 +1,16 @@
+FROM node:18-alpine
+
+RUN mkdir -p /app
+WORKDIR /app
+
+COPY shared ./shared
+
+RUN mkdir -p /app/server
+WORKDIR /app/server
+
+COPY server/package.json server/yarn.lock ./
+RUN yarn install
+
+COPY server ./
+
+CMD yarn dev
